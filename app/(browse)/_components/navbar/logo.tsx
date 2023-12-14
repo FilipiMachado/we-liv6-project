@@ -12,17 +12,19 @@ const font = Poppins({
 export const Logo = () => {
   return (
     <Link href="/">
-      <div className="hidden lg:flex items-center gap-x-4 hover:opacity-75 transition">
-        <div className="p-1">
-          <Image src="/logo.png" alt="Logo" width="38" height="38" className="rounded-full"/>
+      <div className="flex items-center gap-x-4 hover:opacity-75 transition">
+        <div className="p-1 mr-12 shrink-0 lg:mr-0 lg:shrink">
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width="38"
+            height="38"
+            className="rounded-full"
+          />
         </div>
-        <div className={cn(font.className)}>
-          <p className="text-lg font-semibold">
-            We Liv6
-          </p>
-          <p>
-            Let&apos;s play
-          </p>
+        <div className={cn("hidden", font.className)}>
+          <p className="text-lg font-semibold">We Liv6</p>
+          <p>Let&apos;s play</p>
         </div>
       </div>
     </Link>
