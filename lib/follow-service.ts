@@ -70,7 +70,7 @@ export const followUser = async (id: string) => {
   return follow;
 };
 
-export const unfollowedUser = async (id: string) => {
+export const unfollowUser = async (id: string) => {
   const self = await getSelf();
 
   const otherUser = await db.user.findUnique({
