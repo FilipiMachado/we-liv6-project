@@ -16,7 +16,7 @@ export const getSelf = async () => {
   });
 
   if (!user) {
-    throw new Error("Not found");
+    throw new Error("User not found");
   }
 
   return user;
