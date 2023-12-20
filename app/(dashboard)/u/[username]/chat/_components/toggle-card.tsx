@@ -1,6 +1,12 @@
 "use client";
 
-type FieldTypes = "isChatEnabled" | "isChatDelayed" | "isChatFollowersOnly"
+import { toast } from "sonner";
+import { startTransition, useTransition } from "react";
+
+import { Switch } from "@/components/ui/switch";
+import { updateStream } from "@/actions/stream";
+
+type FieldTypes = "isChatEnabled" | "isChatDelayed" | "isChatFollowersOnly";
 
 interface ToggleCardProps {
   label: string;
@@ -8,10 +14,27 @@ interface ToggleCardProps {
   field: FieldTypes;
 }
 
-export const ToggleCard = ({}: ToggleCardProps) => {
+export const ToggleCard = ({
+  label,
+  value = false,
+  field,
+}: ToggleCardProps) => {
+  const onChange = () => {
+    startTransition(() => {
+      updateStream({ [field]: false })
+        .then(() => toast.success("Chat settings updated!"))
+        .catch(() => toast.error("Something went wrong"));
+    });
+  };
+
   return (
-    <div>
-      <div>Toggle Card</div>
+    <div className="rounded-xl bg-muted p-6">
+      <div className="flex items-center justify-between">
+        <p className="font-semibold shrink-0">{label}</p>
+        <div className="space-y-2">
+          <Switch checked={value}>{value ? "On" : "Off"}</Switch>
+        </div>
+      </div>
     </div>
   );
 };
