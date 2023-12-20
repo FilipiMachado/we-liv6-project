@@ -1,5 +1,11 @@
 "use client";
 
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { useCreatorSidebar } from "@/store/use-creator-sidebar";
+
+import { Button } from "@/components/ui/button";
+
 import { LucideIcon } from "lucide-react";
 
 interface NavItemProps {
@@ -9,10 +15,34 @@ interface NavItemProps {
   isActive: boolean;
 }
 
-export const NavItem = ({}: NavItemProps) => {
+export const NavItem = ({
+  icon: Icon,
+  label,
+  href,
+  isActive,
+}: NavItemProps) => {
+  const { collapsed } = useCreatorSidebar((state) => state);
+
   return (
-    <div>
-      <div>Navigation</div>
-    </div>
+    <Button
+      asChild
+      variant="ghost"
+      className={cn(
+        "w-full h-12",
+        collapsed ? "justify-center" : "justify-start",
+        isActive && "bg-accent"
+      )}
+    >
+      <Link href={href}>
+        <div className="flex items-center gap-x-4">
+          <Icon className={cn("h-4 w-4", collapsed ? "mr-0" : "mr-2")} />
+          {!collapsed && (
+            <span>
+              {label}
+            </span>
+          )}
+        </div>
+      </Link>
+    </Button>
   );
 };
